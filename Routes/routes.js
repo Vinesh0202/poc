@@ -12,21 +12,38 @@ const drawerIcon = () => <Icon name='bars' size={30} color={'rgba(50, 50, 50, 1)
 const nav_title = () => {
   return(
     <View style={[styles.navigationBarStyle, styles.navigationBarViewShadow, {flexDirection:'row', alignItems:'center'}]}>
-      <View style={{justifyContent:'center', paddingLeft: 10}}>
-        <TouchableOpacity onPress={() => Actions.drawerOpen()}>
-          <Icon name='bars' size={30} color={'rgba(50, 50, 50, 1)'} />
-        </TouchableOpacity>
+      <View style={{flex: 2, flexDirection:'row'}}>
+        <View style={{justifyContent:'center', flex: 5, paddingLeft: 10}}>
+          <TouchableOpacity onPress={() => Actions.drawerOpen()}>
+            <Icon name='bars' size={30} color={'rgba(50, 50, 50, 1)'} />
+          </TouchableOpacity>
+        </View>
+        <View style={{justifyContent:'center', flex: 5}}>
+          <Image source={require('../assets/icon72x72.png')} style={{width: 40, height: 40}}/>
+        </View>
       </View>
-      <View style={{justifyContent:'center', paddingLeft: 30}}>
-        <Image source={require('../assets/icon72x72.png')} style={{width: 40, height: 40}}/>
-      </View>
-      <View style={{alignItems:'center', justifyContent:'center', paddingLeft: ((Dimensions.get('window').width * 10)/100)}}>
+      <View style={{flex:8, alignItems:'center', justifyContent:'center'}}>
         <Text style={{textAlign:'center', color: 'rgba(50, 50, 50, 1)', fontSize: 20, fontWeight: '400'}}>VCE Maintenance</Text>
         <Text style={{textAlign:'center', fontSize: 16, alignSelf: 'center', color: 'rgba(50, 50, 50, 1)'}}>Eskilstuna Plant</Text>
       </View>
     </View>
   );
 }
+
+// <View style={[styles.navigationBarStyle, styles.navigationBarViewShadow, {flexDirection:'row', alignItems:'center'}]}>
+//   <View style={{justifyContent:'center', paddingLeft: 10}}>
+//     <TouchableOpacity onPress={() => Actions.drawerOpen()}>
+//       <Icon name='bars' size={30} color={'rgba(50, 50, 50, 1)'} />
+//     </TouchableOpacity>
+//   </View>
+//   <View style={{justifyContent:'center', paddingLeft: 30}}>
+//     <Image source={require('../assets/icon72x72.png')} style={{width: 40, height: 40}}/>
+//   </View>
+//   <View style={{alignItems:'center', justifyContent:'center', paddingLeft: ((Dimensions.get('window').width * 10)/100)}}>
+//     <Text style={{textAlign:'center', color: 'rgba(50, 50, 50, 1)', fontSize: 20, fontWeight: '400'}}>VCE Maintenance</Text>
+//     <Text style={{textAlign:'center', fontSize: 16, alignSelf: 'center', color: 'rgba(50, 50, 50, 1)'}}>Eskilstuna Plant</Text>
+//   </View>
+// </View>
 
 //'Eskilstuna Plant'
 

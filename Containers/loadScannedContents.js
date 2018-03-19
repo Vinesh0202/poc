@@ -65,7 +65,7 @@ export default class ScannerContents extends React.Component {
 
   constructor(props){
     super(props);
-    console.log("PROPS COntents: ", this.props.contents);
+    console.log("PROPS COntents: ", this.props);
     if(this.props.contents != undefined || this.props.contents != null){
       this.state = {
                       title: "",
@@ -76,7 +76,8 @@ export default class ScannerContents extends React.Component {
                       information: "",
                       issuer: "",
                       showProgress: false,
-                      isModalVisible: false
+                      isModalVisible: false,
+                      entity_status: this.props.entity_disabled
                     }
     }else{
       this.state = {
@@ -88,7 +89,8 @@ export default class ScannerContents extends React.Component {
                       information: "",
                       issuer: "",
                       showProgress: false,
-                      isModalVisible: false
+                      isModalVisible: false,
+                      entity_status: this.props.entity_disabled
                     }
     }
   }
@@ -167,57 +169,77 @@ export default class ScannerContents extends React.Component {
   render(){
     return(
       <Container style={styles.container}>
-        <Content>
-          <View style={{padding: 20, flex: 1, justifyContent:'center'}}>
-            <Item floatingLabel style={{marginTop:10}}>
-              <Label style={{fontSize: 16, color:'rgba(50, 50, 50, 1)', fontWeight:'bold'}}>Entity ID <Text style={{color:'red'}}> *</Text></Label>
-              <Input value={this.state.entity_id} onChangeText={(entity) => {this.inputOnChange(entity, 'entity_id')}}/>
-            </Item>
-            <Dropdown
-              label={<Text style={{color:'rgba(50, 50, 50, 1)', fontWeight:'bold'}}>Title <Text style={{color:'red'}}> *</Text></Text>}
-              data={title_data}
-              baseColor="rgba(83, 85, 86, 1)"
-              labelFontSize={16}
-              style={{width: Dimensions.get('window').width,fontSize: 18, color: 'black'}}
-              value={this.state.title}
-              onChangeText={(title) => {this.inputOnChange(title, 'title')}}
-            />
-            <View style={{flexDirection:'row', flex: 1}}>
-              <View style={{flex: 5}}>
-                <Dropdown
-                  label={<Text style={{color:'rgba(50, 50, 50, 1)', fontWeight:'bold'}}>Work Type <Text style={{color:'red'}}> *</Text></Text>}
-                  data={work_data}
-                  baseColor="rgba(83, 85, 86, 1)"
-                  labelFontSize={16}
-                  style={{fontSize: 18, color: 'black'}}
-                  value={this.state.work_type}
-                  onChangeText={(work_type) => {this.inputOnChange(work_type, 'work_type')}}
-                />
+        <Content style={{padding: 10}}>
+          <Card style={{flex: 1}}>
+            <CardItem>
+              <Item floatingLabel style={{marginTop:10}}>
+                <Label style={{fontSize: 16, color:'black', fontWeight:'bold'}}>Entity ID <Text style={{color:'red'}}> *</Text></Label>
+                <Input value={this.state.entity_id} editable={this.state.entity_status} onChangeText={(entity_id) => {this.inputOnChange(entity_id, 'entity_id')}}/>
+              </Item>
+            </CardItem>
+
+            <CardItem style={{flexDirection:'row', flex: 1}}>
+              <View style={{flexDirection:'row', flex: 1}}>
+                <View style={{flex: 5}}>
+                  <Dropdown
+                    label={<Text style={{color:'black', fontWeight:'bold'}}>Title <Text style={{color:'red'}}> *</Text></Text>}
+                    data={title_data}
+                    baseColor="rgba(83, 85, 86, 1)"
+                    labelFontSize={16}
+                    style={{fontSize: 18, color: 'black'}}
+                    value={this.state.title}
+                    onChangeText={(title) => {this.inputOnChange(title, 'title')}}
+                  />
+                </View>
               </View>
-              <View style={{flex: 5}}>
-                <Dropdown
-                  label={<Text style={{color:'rgba(50, 50, 50, 1)', fontWeight:'bold'}}>Prority <Text style={{color:'red'}}> *</Text></Text>}
-                  data={priority_data}
-                  baseColor="rgba(83, 85, 86, 1)"
-                  labelFontSize={16}
-                  style={{fontSize: 18, color: 'black'}}
-                  value={this.state.priority}
-                  onChangeText={(priority) => {this.inputOnChange(priority, 'priority')}}
-                />
+            </CardItem>
+
+            <CardItem style={{flexDirection:'row', flex: 1}}>
+              <View style={{flexDirection:'row', flex: 1}}>
+                <View style={{flex: 5}}>
+                  <Dropdown
+                    label={<Text style={{color:'black', fontWeight:'bold'}}>Work Type <Text style={{color:'red'}}> *</Text></Text>}
+                    data={work_data}
+                    baseColor="rgba(83, 85, 86, 1)"
+                    labelFontSize={16}
+                    style={{fontSize: 18, color: 'black'}}
+                    value={this.state.work_type}
+                    onChangeText={(work_type) => {this.inputOnChange(work_type, 'work_type')}}
+                  />
+                </View>
+                <View style={{flex: 5}}>
+                  <Dropdown
+                    label={<Text style={{color:'black', fontWeight:'bold'}}>Prority <Text style={{color:'red'}}> *</Text></Text>}
+                    data={priority_data}
+                    baseColor="rgba(83, 85, 86, 1)"
+                    labelFontSize={16}
+                    style={{fontSize: 18, color: 'black'}}
+                    value={this.state.priority}
+                    onChangeText={(priority) => {this.inputOnChange(priority, 'priority')}}
+                  />
+                </View>
               </View>
-            </View>
-            <Item floatingLabel style={{marginTop:10}}>
-              <Label style={{fontSize: 16, color: 'black', fontWeight:'bold'}}>Issuer</Label>
-              <Input value={this.state.issuer} onChangeText={(issuer) => {this.inputOnChange(issuer, 'issuer')}}/>
-            </Item>
-            <Item floatingLabel style={{marginTop:10}}>
-              <Label style={{fontSize: 16, color: 'black', fontWeight:'bold'}}>Information</Label>
-              <Input multiline={true} value={this.state.information} onChangeText={(information) => {this.inputOnChange(information, 'information')}} style={{height: 150}} style={{height: 150}}/>
-            </Item>
-            <ActivityIndicator style={{opacity: this.state.showProgress ? 1.0 : 0.0, paddingTop:15}} animating={true} size="large" color="#2271E3" />
-          </View>
+            </CardItem>
+
+            <CardItem>
+              <Item floatingLabel style={{marginTop:10}}>
+                <Label style={{fontSize: 16, color: 'black', fontWeight:'bold'}}>Issuer</Label>
+                <Input value={this.state.issuer} onChangeText={(issuer) => {this.inputOnChange(issuer, 'issuer')}}/>
+              </Item>
+            </CardItem>
+
+            <CardItem>
+              <Item floatingLabel style={{marginTop:10}}>
+                <Label style={{fontSize: 16, color: 'black', fontWeight:'bold'}}>Information</Label>
+                <Input multiline={true} value={this.state.information} onChangeText={(information) => {this.inputOnChange(information, 'information')}} style={{height: 150}} style={{height: 150}}/>
+              </Item>
+            </CardItem>
+
+            <ActivityIndicator style={[{opacity: this.state.showProgress ? 1.0 : 0.0}, styles.loading]} animating={true} size="large" color="#2271E3" />
+          </Card>
         </Content>
-        <View style={{flexDirection:'row', background:'#fff', padding:5}}>
+
+        <View style={{flexDirection:'row', backgroundColor:'#fff', padding:5}}>
           <TouchableOpacity onPress={() => this.clearallfields()} style={{flex:5, height: 50, alignItems: 'center', justifyContent: "center", backgroundColor: 'rgba(128, 158, 180, 1)', borderRightWidth:1, borderColor:'#fff'}}>
             <View>
               <Text style={[styles.button_text, {fontSize: 18}]}>Cancel</Text>
@@ -225,7 +247,7 @@ export default class ScannerContents extends React.Component {
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.sendDetails()} style={{flex:5, height: 50, alignItems: 'center', justifyContent: "center", backgroundColor: 'rgba(128, 158, 180, 1)'}}>
             <View>
-              <Text style={[styles.button_text, {fontSize: 18}]}>Send Details</Text>
+              <Text style={[styles.button_text, {fontSize: 18}]}>Submit</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -241,11 +263,58 @@ const styles = StyleSheet.create({
   },
   button_text: {
     color: '#fff', textAlign: 'center'
+  },
+  loading: {
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
 
-// <TouchableOpacity onPress={() => this.sendDetails()}>
-//   <View style={{height: 50, alignItems: 'center', justifyContent: "center", backgroundColor: '#2271E3', borderRadius: 8, marginTop: 50}}>
-//     <Text style={[styles.button_text, {fontSize: 18}]}>Send Details</Text>
+// <View style={{padding: 20, flex: 1, justifyContent:'center'}}>
+//   <Item floatingLabel style={{marginTop:10}}>
+//     <Label style={{fontSize: 16, color:'black', fontWeight:'bold'}}>Entity ID <Text style={{color:'red'}}> *</Text></Label>
+//     <Input value={this.state.entity_id} editable={this.state.entity_status} onChangeText={(entity) => {this.inputOnChange(entity, 'entity_id')}}/>
+//   </Item>
+  // <Dropdown
+  //   label={<Text style={{color:'rgba(50, 50, 50, 1)', fontWeight:'bold'}}>Title <Text style={{color:'red'}}> *</Text></Text>}
+  //   data={title_data}
+  //   baseColor="rgba(83, 85, 86, 1)"
+  //   labelFontSize={16}
+  //   style={{width: Dimensions.get('window').width,fontSize: 18, color: 'black'}}
+  //   value={this.state.title}
+  //   onChangeText={(title) => {this.inputOnChange(title, 'title')}}
+  // />
+//   <View style={{flexDirection:'row', flex: 1}}>
+//     <View style={{flex: 5}}>
+//       <Dropdown
+//         label={<Text style={{color:'rgba(50, 50, 50, 1)', fontWeight:'bold'}}>Work Type <Text style={{color:'red'}}> *</Text></Text>}
+//         data={work_data}
+//         baseColor="rgba(83, 85, 86, 1)"
+//         labelFontSize={16}
+//         style={{fontSize: 18, color: 'black'}}
+//         value={this.state.work_type}
+//         onChangeText={(work_type) => {this.inputOnChange(work_type, 'work_type')}}
+//       />
+//     </View>
+//     <View style={{flex: 5}}>
+//       <Dropdown
+//         label={<Text style={{color:'rgba(50, 50, 50, 1)', fontWeight:'bold'}}>Prority <Text style={{color:'red'}}> *</Text></Text>}
+//         data={priority_data}
+//         baseColor="rgba(83, 85, 86, 1)"
+//         labelFontSize={16}
+//         style={{fontSize: 18, color: 'black'}}
+//         value={this.state.priority}
+//         onChangeText={(priority) => {this.inputOnChange(priority, 'priority')}}
+//       />
+//     </View>
 //   </View>
-// </TouchableOpacity>
+//   <Item floatingLabel style={{marginTop:10}}>
+//     <Label style={{fontSize: 16, color: 'black', fontWeight:'bold'}}>Issuer</Label>
+//     <Input value={this.state.issuer} onChangeText={(issuer) => {this.inputOnChange(issuer, 'issuer')}}/>
+//   </Item>
+//   <Item floatingLabel style={{marginTop:10}}>
+//     <Label style={{fontSize: 16, color: 'black', fontWeight:'bold'}}>Information</Label>
+//     <Input multiline={true} value={this.state.information} onChangeText={(information) => {this.inputOnChange(information, 'information')}} style={{height: 150}} style={{height: 150}}/>
+//   </Item>
+//   <ActivityIndicator style={{opacity: this.state.showProgress ? 1.0 : 0.0, paddingTop:15}} animating={true} size="large" color="#2271E3" />
+// </View>

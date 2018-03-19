@@ -14,11 +14,12 @@ export default class Home extends React.Component<Props> {
 
   scan_action = () => {
     //alert("Load Scan Screen!!");
+    console.log("Nav Props: ", this.props);
     Actions.qrcode();
   }
 
   enter_action = () => {
-    Actions.contents();
+    Actions.contents({contents: undefined, entity_editable: true});
   }
 
 //B4CEF3

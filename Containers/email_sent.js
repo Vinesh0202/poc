@@ -14,11 +14,11 @@ export default class Home extends React.Component<Props> {
 
   scan_action = () => {
     //alert("Load Scan Screen!!");
-    Actions.qrcode();
+    Actions.qrcode({entity_status: false});
   }
 
   enter_action = () => {
-    Actions.contents();
+    Actions.contents({entity_status: true});
   }
 
 //B4CEF3

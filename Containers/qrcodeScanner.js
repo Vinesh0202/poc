@@ -18,7 +18,7 @@ export default class QRScanner extends Component {
     console.log("Scanned Code", e);
     var jsonString = e.data;
     var jsonObj = JSON.parse(jsonString);
-    Actions.contents({contents: jsonObj})
+    Actions.contents({contents: jsonObj, entity_editable: false});
   }
 
   render() {
